@@ -1,0 +1,29 @@
+{
+  "name": "cheerigo",
+  "version": "1.0.0",
+  "description": "a web app that lets users view and leave comments on the latest news",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kylepadilla/Cheerigo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kylepadilla/Cheerigo/issues"
+  },
+  "homepage": "https://github.com/Kylepadilla/Cheerigo#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.2",
+    "mongoose": "^5.5.2",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.11"
+  }
+}
