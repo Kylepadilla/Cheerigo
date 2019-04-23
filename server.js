@@ -87,7 +87,7 @@ app.post("/articles/:id", function(req, res) {
     var saveNote = new Note(req.body);
   
     saveNote.save(function(error, doc) {
-
+        
       if (error) {
         console.log(error);
       }
