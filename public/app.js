@@ -1,6 +1,6 @@
 
 // pulls the articles
-// $.getJSON("/articles", function(data) {
+// $.getJSON("/articles", data=> {
 //     for (var i = 0; i < data.length; i++) {
 //       $("#articleList").append("<li data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</li>");
 //     }
@@ -9,21 +9,21 @@ $.ajax({
     method: "GET",
     url: "/articles"
   })
-   .then(function(data) {
+   .then(data=> {
     for (var i = 0; i < data.length; i++) {
       $("#articleList").append("<li data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</li>");
     }
   });
 
 
-  $(document).on("click", "p", function() {
+  $(document).on("click", "li", ()=> {
     $("#notes").empty();
     var article_Id = $(this).attr("data-id");
     $.ajax({
       method: "GET",
       url: "/articles/" + article_Id
     })
-     .then(function(data) {
+     .then(data=> {
         console.log(data);
         $("#notes").append("<h2>" + data.title + "</h2>");
         $("#notes").append("<input id='noteTitle' name='title' >");
@@ -37,7 +37,7 @@ $.ajax({
       });
   });  
   
-  $(document).on("click", "#saveNote", function() {
+  $(document).on("click", "#saveNote", ()=> {
 
     var article_Id = $(this).attr("data-id");
   
@@ -48,9 +48,7 @@ $.ajax({
         title: $("#noteTitle").val(),
         body: $("#noteText").val()
       }
-    })
-
-.then(function(data) {
+    }).then(data=>{
         console.log(data);
         $("#notes").empty();
       });
