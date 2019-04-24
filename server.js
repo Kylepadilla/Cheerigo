@@ -21,8 +21,15 @@ var app = express();
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
+
 // connect mongo
-mongoose.connect("mongodb://localhost/week18Populaterk");
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI);
+
+
+
 
 // get route to scrape the echojs website
 app.get("/scrape", (req,res)=> {

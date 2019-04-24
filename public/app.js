@@ -5,7 +5,7 @@
 //       $("#articleList").append("<li data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</li>");
 //     }
 //   });
-$.ajax({
+  $.ajax({
     method: "GET",
     url: "/articles"
   })
