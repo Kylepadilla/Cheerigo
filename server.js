@@ -25,21 +25,17 @@ app.use(express.static("public"));
 mongoose.connect("mongodb://localhost/week18Populaterk");
 
 // get route to scrape the echojs website
-app.get("/scrape", function(req, res) {
-  axios.get("http://www.echojs.com/").then(function(response) {
+app.get("/scrape", (req,res)=> {
+  axios.get("http://www.echojs.com/").then(response=> {
 
 var $ = cheerio.load(response.data);
 
     $("article h2").each(function(i, element) {
       var result = {};
 
-      result.title = $(this)
-        .children("a")
-        .text();
-      result.link = $(this)
-        .children("a")
-        .attr("href");
-        console.log(result)
+
+      result.title = $(this).children("a").text();
+      result.link = $(this).children("a").attr("href");
 
       var save = new Article(result)
 
@@ -58,46 +54,50 @@ var $ = cheerio.load(response.data);
 });
 
 
-app.get("/articles", function(req, res) {
-  Article.find({})
-    .then(function(dbArticle) {
+app.get("/articles", (req,res)=> {
+  Article.find({}).then(dbArticle=> {
       res.json(dbArticle);
+
     })
-    .catch(function(err) {
+    .catch(err=> {
+
       res.json(err);
     });
 });
 
 
-app.get("/articles/:id", function(req, res) {
+app.get("/articles/:id", (req,res)=> {
 
-  Article.findOne({ _id: req.params.id }).populate("note").then(
-      function(dbArticle) {
-
+  Article.findOne({ _id: req.params.id }).populate("note").then(dbArticle=> {
       res.json(dbArticle);
-    })
-    .catch(function(err) {
-
+    }).catch(err=> {
       res.json(err);
     });
 });
 
-app.post("/articles/:id", function(req, res) {
+app.post("/articles/:id", (req,res)=> {
 
     var saveNote = new Note(req.body);
   
-    saveNote.save(function(error, doc) {
-        
+    saveNote.save((error, doc)=> {
+
       if (error) {
         console.log(error);
       }
       else {
-        Article.findOneAndUpdate({ "_id": req.params.id }, { "note": doc._id })
+        Article.findOneAndUpdate(
+            {
+                 "_id": req.params.id
+             }, 
+            { 
+                "note": doc._id 
+            }
+            )
       }
     });
   });
 
 
-app.listen(PORT, function() {
+app.listen(PORT, ()=> {
   console.log("App running on port " + PORT + "!");
 });
